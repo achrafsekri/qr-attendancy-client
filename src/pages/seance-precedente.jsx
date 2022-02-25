@@ -5,6 +5,9 @@ import { Box,Container,CssBaseline } from '@mui/material';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Select_seance from '../components/selector/select_seance';
 import { useEffect } from 'react';
+import Button from '@mui/material/Button';
+import Tab_seance from '../table_seance/tab_seance';
+import Tab_etudiant_pre from '../table_seance/Tab_etudiant_pre';
 
 const theme = createTheme({
   palette: {
@@ -19,21 +22,29 @@ const theme = createTheme({
 
 export default function Seance_precedente() {
   const [step,setstep]=useState(1);
+  const [date,setdate]=useState('');
+  const [seance,setseance]=useState('');
 
-  const handelsub=()=>{
-    console.log('ff')
+  const handelsend=(da)=>{
+    setdate(da);
   }
 
   const starting=()=>{
-    return <Select_seance func={handelsub}></Select_seance>
+    return <div style={{display:'flex',justifyContent:'space-between', width:'inherit',height:'',marginTop:'15vh'}}>
+      <Select_seance func={handelsend}></Select_seance>
+      <Button variant="outlined" size='medium'  onClick={()=>{setstep(step=>step+1)}}>Afficher les seances</Button>
+      </div>
   }
   
   const display_tab_seance=()=>{
-    return <h1>step2</h1>
+    return <div style={{width:'70vw'}}>
+      <Tab_seance func={setseance}></Tab_seance>
+      <Button variant="outlined" size='medium' style={{marginTop:'10px'}} onClick={()=>{seance!==''?setstep(step=>step+1):window.alert('selectioner seance')}}>Afficher les seances</Button>
+    </div>
   }
 
   const display_seance=()=>{
-    return <h1>step3</h1>
+    return <Tab_etudiant_pre></Tab_etudiant_pre>
   }
 
   return (<React.Fragment>

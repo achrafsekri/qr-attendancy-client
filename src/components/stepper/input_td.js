@@ -42,9 +42,9 @@ function getStyles(name, personName, theme) {
     } = event;
     setPersonName(
       // On autofill we get a stringified value.
-      typeof value === 'string' ? value.split(',') : value,
+      value
     );
-    typeof value === 'string' ? seance.td=value.split(',') : seance.td=value;
+    seance.td=value;
     };
 
   return (

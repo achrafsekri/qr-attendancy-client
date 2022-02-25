@@ -4,6 +4,7 @@ import {useState,useEffect} from 'react';
 import Button from '@mui/material/Button';
 import { Box } from '@mui/material';
 import './qrcode.css'
+import axios from 'axios';
 
 export default function Qrcode() {
   const [code,setcode]=useState('');
@@ -13,6 +14,15 @@ export default function Qrcode() {
 
   const generate_qr=()=>{
       let text=(Math.random() + 1).toString(36).substring(7);
+
+      axios.post('/qrcode',text)
+      .then(function (response) {
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+
       sethidden('display');
       QRCode.toDataURL(text).then((data)=>{
         setcode(data);
@@ -26,6 +36,13 @@ export default function Qrcode() {
         QRCode.toDataURL(text).then((data)=>{
         setcode(data);
         setqrcode(text);
+        axios.post('/qrcode',text)
+      .then(function (response) {
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
     });
       }, 8000);
       return () => clearInterval(interval);

@@ -11,6 +11,7 @@ import seance from '../components/stepper/seance';
 import { useEffect } from 'react';
 import Table from '../components/table/Table'
 import axios from "axios"
+import user from '../components/user/user'
 
 const theme = createTheme({
   palette: {
@@ -28,8 +29,32 @@ export default function Cree_seance() {
   const [cree,setcree] = useState('start');
   const[etudata,setetudata]=useState([]);
   const change =()=>{
+
+    const d = new Date();
     console.log("changed!");
     setcree('tab');
+    seance.enRef=user.id;
+    const day=[d.getMonth()+1,d.getDate(),d.getFullYear()];
+    const heuredeb=[d.getHours(),d.getMinutes()];
+    const heuref=[d.getHours()+2,d.getMinutes()];
+    seance.date=day.join('/');
+    seance.startAt=day.join('/')+" "+heuredeb.join(':');
+    seance.endAt=day.join('/')+" "+heuref.join(':');
+    seance.filiere=seance.filiere.join();
+
+    seance.tp=seance.tp.toString();
+    seance.td=seance.td.toString();
+
+    console.log(seance);
+
+    axios.post('http://localhost:4000/seance', seance)
+    .then(function (response) {
+      console.log(response.data);
+    })
+    .catch(function (error) {
+      console.log('error');
+    });
+
   }
 
   // useEffect(()=>{
@@ -37,7 +62,7 @@ export default function Cree_seance() {
   // })
 
   useEffect(() => {
-    if(seance.nom_classe.length>0) 
+    if(seance.filiere.length>0) 
       {setcree('tab')}
   },[]);
 
@@ -58,18 +83,34 @@ export default function Cree_seance() {
     //   console.log(etudata);
     // }, 8000);
 
+    const handelterminer=()=>{
+      console.log('terminer');
+
+      seance.enRef='';
+      seance.tp='';
+      seance.td='';
+      seance.filiere='';
+      seance.startAt='';
+      seance.endAt='';
+      seance.matiere='';
+      seance.date='';
+      setcree('start');
+
+    }
+
     return<Box display="flex"
     justifyContent="center"
     alignItems="center"
     Height="100vh"
     width="inherit"
-    sx={{ flexDirection: 'column', margin:'20px'}}
+    sx={{ flexDirection: 'column', margin:'0'}}
     >
+      <div className="buttoncontainer" style={{display:"flex" ,justifyContent:"flex-start", width:'inherit',marginBottom:'10px'}}>
     <Link href="/generate-qr-code" target="_blank" underline="none">
-      <Button variant="outlined" size='large' sx={{ justifySelf:'flex-start',margin:'10px'}} >QR code</Button>
+      <Button variant="outlined" size='large' sx={{margin:'5px'}} >QR code</Button>
     </Link>
-    <Button variant="outlined" size='large' sx={{ justifySelf:'flex-start',margin:'10px'}} >Terminer la seance</Button>
-
+    <Button variant="outlined" size='large' sx={{ margin:'5px'}} onClick={handelterminer}>Terminer la seance</Button>
+    </div>
       <Table></Table>
     </Box>
   }

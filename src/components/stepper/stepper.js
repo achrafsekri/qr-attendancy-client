@@ -44,15 +44,15 @@ export default function HorizontalLinearStepper(props) {
   };
 
   const handleNext = () => {
-    if(activeStep==2 && seance.td.length===0){
+    if(activeStep==2 && seance.td===''){
       window.alert('Sélectionner au moins un TD')
     }
     else{
-    if(activeStep==1 && seance.nom_classe.length===0){
+    if(activeStep==1 && seance.filiere===''){
       window.alert("Sélectionner au moins une Classe");
     }
     else{
-    if(seance.nom_seance==='')
+    if(seance.matiere==='')
       {(window.alert('doner un nom pour la seance'))}
       else{
     let newSkipped = skipped;

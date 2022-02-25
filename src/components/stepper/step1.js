@@ -6,13 +6,13 @@ import seance from './seance'
 
 export default function Step1() {
     const handelchange=(e)=>{
-        seance.nom_seance=e.target.value;
+        seance.matiere=e.target.value;
     }
   return (
     <Box  sx={{ display: 'flex', width:'35vw',height:'30vh',justifyContent:'center',alignItems:'center', pt: 2 ,justifySelf:'center',alignSelf:'center'}}>
      <TextField
           id="standard-password-input"
-          label="Nom de la seance"
+          label="Donner la matière"
           type="text"
           autoComplete="current-password"
           variant="standard"
