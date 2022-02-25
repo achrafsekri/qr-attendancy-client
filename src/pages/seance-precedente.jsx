@@ -24,6 +24,7 @@ export default function Seance_precedente() {
   const [step,setstep]=useState(1);
   const [date,setdate]=useState('');
   const [seance,setseance]=useState('');
+  const[allseance,setallseance]=useState([{id:'1',nom:'ashraf'}]);
 
   const handelsend=(da)=>{
     setdate(da);
@@ -32,19 +33,24 @@ export default function Seance_precedente() {
   const starting=()=>{
     return <div style={{display:'flex',justifyContent:'space-between', width:'inherit',height:'',marginTop:'15vh'}}>
       <Select_seance func={handelsend}></Select_seance>
-      <Button variant="outlined" size='medium'  onClick={()=>{setstep(step=>step+1)}}>Afficher les seances</Button>
+      <Button variant="outlined" size='medium'  onClick={()=>
+      { 
+        setallseance();
+        setstep(step=>step+1);
+      }
+    }>Afficher les seances</Button>
       </div>
   }
   
   const display_tab_seance=()=>{
     return <div style={{width:'70vw'}}>
-      <Tab_seance func={setseance}></Tab_seance>
-      <Button variant="outlined" size='medium' style={{marginTop:'10px'}} onClick={()=>{seance!==''?setstep(step=>step+1):window.alert('selectioner seance')}}>Afficher les seances</Button>
+      <Tab_seance func={setseance} sent={[{id:'1',date:'ashraf'}]}></Tab_seance>
+      <Button variant="outlined" size='medium' style={{marginTop:'10px'}} onClick={()=>{seance!==''?setstep(step=>step+1):window.alert('selectioner au moins une seance')}}>Afficher cette Seances</Button>
     </div>
   }
 
   const display_seance=()=>{
-    return <Tab_etudiant_pre></Tab_etudiant_pre>
+    return <Tab_etudiant_pre sent={allseance}></Tab_etudiant_pre>
   }
 
   return (<React.Fragment>

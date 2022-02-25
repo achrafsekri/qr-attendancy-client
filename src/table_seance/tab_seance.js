@@ -5,10 +5,11 @@ import axios from "axios";
 import { useState } from 'react';
 
 function Tab_seance(props) {
-    // const rows=props.rows;
-    const rows=[{id:'1',nom:'ashraf'}]
+
+    // const rows=props.sent;
+    const rows=[{id:'1',date:'ashraf'}];
     const columns = [
-        { field: 'matiere', headerName: 'matiere', width: 200 },
+        { field: 'matiere', headerName: 'Matiere', width: 200 },
         { field: 'date', headerName: 'Date', width: 130 },
         { field: 'startAt', headerName: 'Heure debut', width: 130 },
         { field: 'endAt', headerName: 'Heure fin', width: 130 },
@@ -21,7 +22,7 @@ function Tab_seance(props) {
           props.func(rowData.row.id);
       }
       return (
-        <div style={{ height: 400, width: '70wv' }}>
+        <div style={{ height: 400, width: '100%' }}>
           <DataGrid
             rows={rows}
             columns={columns}

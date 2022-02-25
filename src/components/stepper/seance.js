@@ -1,7 +1,7 @@
 const seance = {
     enRef:'',
     date:'',
-    filiere:'s',
+    filiere:'',
     startAt:'',
     endAt:'',
     tp:'',

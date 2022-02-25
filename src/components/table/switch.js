@@ -5,7 +5,7 @@ import { useSwitch } from '@mui/base/SwitchUnstyled';
 import etudiant from './etudiant_list';
 import a from '../../assets/images/a.png';
 import Box from '@mui/material/Box';
-
+import axios from 'axios';
 const blue = {
   700: '#673ab7',
 };
@@ -88,8 +88,10 @@ function MUISwitch(props) {
     focusVisible,
   };
 
+
+
   return (
-    <SwitchRoot className={clsx(stateClasses)}>
+    <SwitchRoot className={clsx(stateClasses)} >
       <SwitchTrack>
         <SwitchThumb className={clsx(stateClasses)} />
       </SwitchTrack>
@@ -109,15 +111,27 @@ function MUISwitch(props) {
 
 export default function UseSwitchesCustom(props) {
     let cin = props.cin;
+    let id = props.id;
     let et={};
     const [che,setche]=React.useState(props.check);
+    
     const handelchange=(e)=>{
         setche(!che);
-        etudiant.forEach(element => {
-            if(element.cin===cin){
-                element.presence=!element.presence;
-            }
+        const send={presence:che,cin:cin,id:id};
+        console.log(send);
+        
+        axios.post("localhost:4000/update_presence", send)
+        .then(function (response) {
+          console.log(response);
+        })
+        .catch(function (error) {
+          console.log(error);
         });
+        // etudiant.forEach(element => {
+        //     if(element.cin===cin){
+        //         element.presence=!element.presence;
+        //     }
+        // });
         console.log(etudiant);
     }
     

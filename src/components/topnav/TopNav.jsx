@@ -15,7 +15,7 @@ import user_image from '../../assets/images/1.png'
 import user_menu from '../../assets/JsonData/user_menus.json'
 
 const curr_user = {
-    display_name: 'samir loussif',
+    display_name: 'Taoufik chakka',
     image: user_image
 }
 

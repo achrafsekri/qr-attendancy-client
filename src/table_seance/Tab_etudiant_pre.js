@@ -2,8 +2,9 @@ import React from 'react'
 import { DataGrid } from '@mui/x-data-grid';
 
 export default function Tab_etudiant_pre(props) {
-    // const rows=props.rows;
-    const rows=[{id:'1',nom:'ashraf'}]
+
+    const rows= props.sent;
+    // const rows=[{id:'1',date:'ashraf'}]
     const columns = [
         { field: 'nom', headerName: 'Nom', width: 130 },
         { field: 'nom', headerName: 'Nom', width: 130 },

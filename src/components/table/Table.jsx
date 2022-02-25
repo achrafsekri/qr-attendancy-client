@@ -9,9 +9,10 @@ import Paper from '@mui/material/Paper';
 import etudiant_list from './etudiant_list';
 import Switch from './switch'
 
-const rows = etudiant_list;
 
-export default function BasicTable() {
+
+export default function BasicTable(props) {
+  const rows = props.etud;
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label="simple table" stickyHeader={true} rowCount={5}>
@@ -40,7 +41,7 @@ export default function BasicTable() {
               <TableCell align="right">{row.classe}</TableCell>
               <TableCell align="right">{row.td}</TableCell>
               <TableCell align="right">{row.tp}</TableCell>
-              <TableCell align="right"><Switch check={row.presence} cin={row.cin}></Switch></TableCell>
+              <TableCell align="right"><Switch check={row.presence} cin={row.cin} id={props.id}></Switch></TableCell>
             </TableRow>
           ))}
         </TableBody>

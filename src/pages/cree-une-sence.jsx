@@ -26,8 +26,22 @@ const theme = createTheme({
 
 
 export default function Cree_seance() {
+  
   const [cree,setcree] = useState('start');
   const[etudata,setetudata]=useState([]);
+  
+const get_etudiant=()=>{
+  axios.post('http://localhost:4000/seance', seance)
+  .then(function (response) {
+    console.log(response.data);
+    setetudata(response.data.etudiants);
+  })
+  .catch(function (error) {
+    console.log('error');
+  });
+}
+
+
   const change =()=>{
 
     const d = new Date();
@@ -41,19 +55,15 @@ export default function Cree_seance() {
     seance.startAt=day.join('/')+" "+heuredeb.join(':');
     seance.endAt=day.join('/')+" "+heuref.join(':');
     seance.filiere=seance.filiere.join();
-
+    seance.id=(Math.random() + 1).toString(36).substring(7);
     seance.tp=seance.tp.toString();
     seance.td=seance.td.toString();
 
     console.log(seance);
 
-    axios.post('http://localhost:4000/seance', seance)
-    .then(function (response) {
-      console.log(response.data);
-    })
-    .catch(function (error) {
-      console.log('error');
-    });
+    get_etudiant();
+
+    setInterval(get_etudiant(), 5000);
 
   }
 
@@ -64,14 +74,12 @@ export default function Cree_seance() {
   useEffect(() => {
     if(seance.filiere.length>0) 
       {setcree('tab')}
+      get_etudiant();
   },[]);
-
-  useEffect(()=>{
-    axios.get("/test").then(
-      response=>setetudata(response.data)
-      )
-      console.log(etudata);
-  },[])
+  etudata.forEach((etudiant)=>{
+    etudiant.presence=false;
+    console.log(etudiant)
+  });
 
   const display_cree=()=>{
     // setInterval(() => {
@@ -111,7 +119,7 @@ export default function Cree_seance() {
     </Link>
     <Button variant="outlined" size='large' sx={{ margin:'5px'}} onClick={handelterminer}>Terminer la seance</Button>
     </div>
-      <Table></Table>
+      <Table etud={etudata} id={seance.id}></Table>
     </Box>
   }
 
@@ -131,6 +139,7 @@ export default function Cree_seance() {
     </Button>
     </Box>
   }
+  
   return (
     <React.Fragment>
       <CssBaseline />
